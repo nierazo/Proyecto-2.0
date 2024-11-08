@@ -4,11 +4,10 @@ import controller.ControlPath;
 import models.Actividad;
 import models.LearningPath;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Estudiante extends Usuario {
     private ArrayList<LearningPath> learningPathsInscritos;  // Lista de Learning Paths en los que está inscrito
-    private HashMap<String, ControlPath> controlPaths;  // Lista de ControlPath para gestionar el progreso de cada Learning Path
+    private ArrayList<ControlPath> controlPaths;  // Lista de ControlPath para gestionar el progreso de cada Learning Path
 
     // Constructor
     public Estudiante(String nombre, String email) {
@@ -43,11 +42,6 @@ public class Estudiante extends Usuario {
             System.out.println("- " + lp.getTitulo());
         }
     }
-    
-    public HashMap<String, ControlPath> getControl() {
-        return controlPaths;
-        }
-    
     
  // Método para que el estudiante realice una actividad
     public void realizarActividad(Actividad actividad) {

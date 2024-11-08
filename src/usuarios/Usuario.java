@@ -4,7 +4,6 @@ public class Usuario {
     
     private String nombre;
     private String email;
-    private String clave;
 
     // Constructor
     public Usuario(String nombre, String email) {
@@ -39,17 +38,5 @@ public class Usuario {
         System.out.println("Nombre: " + nombre);
         System.out.println("Email: " + email);
     }
-    
-    public void ingresar() {
-    	
-    }
-
-	public String getClave() {
-		return clave;
-	}
-
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
 }
 
