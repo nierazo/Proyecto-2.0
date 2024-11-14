@@ -16,7 +16,7 @@ import java.util.Date;
 public class MainApp {
     public static void main(String[] args) {
         // Crear un profesor
-        Profesor profesor1 = new Profesor("Carlos Pérez", "cperez@learning.com");
+        Profesor profesor1 = new Profesor("Carlos Pérez", "cperez@learning.com", "wyxgh");
 
         // Crear un Learning Path
         LearningPath learningPath1 = profesor1.crearLearningPath(
@@ -76,8 +76,8 @@ public class MainApp {
         profesor1.mostrarLearningPaths();
 
         // Crear un estudiante
-        Estudiante estudiante1 = new Estudiante("Juan López", "jlopez@learning.com");
-        Estudiante estudiante2 = new Estudiante("Ana García", "agarcia@learning.com");
+        Estudiante estudiante1 = new Estudiante("Juan López", "jlopez@learning.com", "wyxgh");
+        Estudiante estudiante2 = new Estudiante("Ana García", "agarcia@learning.com", "wyxgh");
 
         // Inscribir a los estudiantes en el Learning Path
         estudiante1.inscribirseEnLearningPath(learningPath1);

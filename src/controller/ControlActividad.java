@@ -4,7 +4,7 @@ import models.Actividad;  // Relación con Actividad
 import java.util.Date;
 
 public class ControlActividad {
-    private Actividad actividad;  // Relación con la clase Actividad
+    private String nombre;  // Relación con la clase Actividad
     private String estado;  // Estado de la actividad (en progreso, completada, etc.)
     private Date fechaCompletar;  // Fecha de finalización
     private float tiempoDedicado;  // Tiempo dedicado en horas
@@ -13,8 +13,8 @@ public class ControlActividad {
     private String medioEntrega;  // Medio de entrega de la actividad (online, físico, etc.)
 
     // Constructor que toma una Actividad
-    public ControlActividad(Actividad actividad, String medioEntrega) {
-        this.actividad = actividad;
+    public ControlActividad(String nombre, String medioEntrega) {
+        this.nombre = nombre;
         this.estado = "no iniciada";  // Por defecto, la actividad no ha sido iniciada
         this.tiempoDedicado = 0;
         this.tasaExitoFracaso = 0;
@@ -26,7 +26,7 @@ public class ControlActividad {
     public void completarActividad() {
         this.estado = "completada";
         this.fechaCompletar = new Date();  // Fecha actual de finalización
-        System.out.println("La actividad " + actividad.getDescripcion() + " ha sido completada.");
+        System.out.println("La actividad " + nombre + " ha sido completada.");
     }
 
     // Método para obtener el resultado de la actividad, mostrando la calificación
@@ -50,18 +50,18 @@ public class ControlActividad {
     // Método para actualizar el estado de la actividad
     public void actualizarEstado(String nuevoEstado) {
         this.estado = nuevoEstado;
-        System.out.println("El estado de la actividad " + actividad.getDescripcion() + " ha sido actualizado a: " + nuevoEstado);
+        System.out.println("El estado de la actividad " + nombre + " ha sido actualizado a: " + nuevoEstado);
     }
 
     // Método para establecer la fecha límite de la actividad
     public void establecerFechaLimite(Date fechaLimite) {
-        System.out.println("La fecha límite para la actividad " + actividad.getDescripcion() + " es: " + fechaLimite);
+        System.out.println("La fecha límite para la actividad " + nombre + " es: " + fechaLimite);
     }
 
     // Método para agregar tiempo dedicado a la actividad
     public void agregarTiempoDedicado(float horas) {
         this.tiempoDedicado += horas;
-        System.out.println("Tiempo dedicado a la actividad " + actividad.getDescripcion() + " actualizado: " + this.tiempoDedicado + " horas.");
+        System.out.println("Tiempo dedicado a la actividad " + nombre + " actualizado: " + this.tiempoDedicado + " horas.");
     }
 
     // Getters y Setters
@@ -110,11 +110,11 @@ public class ControlActividad {
         this.medioEntrega = medioEntrega;
     }
 
-    public Actividad getActividad() {
-        return actividad;
+    public String getNombreActividad() {
+        return nombre;
     }
 
-    public void setActividad(Actividad actividad) {
-        this.actividad = actividad;
+    public void setNombreActividad(String n) {
+        this.nombre = n;
     }
 }

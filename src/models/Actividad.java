@@ -3,22 +3,24 @@ package models;
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class Actividad {
-    protected String descripcion;
-    protected String objetivo;
-    protected String nivelDificultad;
-    protected int duracionEsperada;
-    protected ArrayList<Actividad> prerequisitos;
-    protected Date fechaLimiteBasadaEnActividadAnterior;
-    protected boolean obligatorioOpcional;
-    protected int resultado;
-    protected float rating;
-    private float sumaRating;//PARA QUE NATA HAGA LO DEL PROMEDIO DE LAS RESEÑAS
-    protected String creador;
+public class Actividad {
+	private String nombre;
+    private String descripcion;
+    private String objetivo;
+    private String nivelDificultad;
+    private int duracionEsperada;
+    private ArrayList<Actividad> prerequisitos;
+    private Date fechaLimiteBasadaEnActividadAnterior;
+    private boolean obligatorioOpcional;
+    private int resultado;
+    private float rating;
+    private float sumaRating;
+    private String creador;
 
     // Constructor
-    public Actividad(String descripcion, String objetivo, String nivelDificultad, int duracionEsperada, String creador) {
-        this.descripcion = descripcion;
+    public Actividad(String nombre, String descripcion, String objetivo, String nivelDificultad, int duracionEsperada, String creador) {
+        this.nombre = nombre;
+    	this.descripcion = descripcion;
         this.objetivo = objetivo;
         this.nivelDificultad = nivelDificultad;
         this.duracionEsperada = duracionEsperada;
@@ -29,7 +31,15 @@ public abstract class Actividad {
         this.creador = creador;
     }
 
-    // Método para obtener el resultado de la actividad
+    public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	// Método para obtener el resultado de la actividad
     public String obtenerResultado() {
         return "Resultado de la actividad: " + resultado;
     }
@@ -58,7 +68,9 @@ public abstract class Actividad {
             }
         }
         return true;
+        
     }
+    
 
     // Getters y Setters
     public int getDuracionEsperada() {
@@ -84,7 +96,10 @@ public abstract class Actividad {
     public void setRating(float rating) {
         this.rating = rating;
     }
-
+    
+    public float getSumaRating() {
+        return sumaRating;
+    }
     //implementado por las subclases para obtener los detalles de la actividad
-    public abstract String obtenerDetalles();
+    //public abstract String obtenerDetalles();
 }

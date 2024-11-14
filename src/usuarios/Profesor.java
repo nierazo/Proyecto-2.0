@@ -10,8 +10,8 @@ public class Profesor extends Usuario {
     private ArrayList<LearningPath> learningPaths;  // Lista de Learning Paths creados por el profesor
 
     // Constructor para inicializar al profesor
-    public Profesor(String nombre, String email) {
-        super(nombre, email);
+    public Profesor(String nombre, String email, String clave) {
+        super(nombre, email, clave);
         this.learningPaths = new ArrayList<>();  // Inicializa la lista de Learning Paths vacía
     }
 

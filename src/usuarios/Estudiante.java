@@ -10,8 +10,8 @@ public class Estudiante extends Usuario {
     private ArrayList<ControlPath> controlPaths;  // Lista de ControlPath para gestionar el progreso de cada Learning Path
 
     // Constructor
-    public Estudiante(String nombre, String email) {
-        super(nombre, email);  // Llama al constructor de Usuario
+    public Estudiante(String nombre, String email, String clave) {
+        super(nombre, email, clave);  // Llama al constructor de Usuario
         this.learningPathsInscritos = new ArrayList<>();
         this.controlPaths = new ArrayList<>();  // Inicializa la lista de ControlPath
     }

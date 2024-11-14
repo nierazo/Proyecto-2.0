@@ -4,14 +4,26 @@ public class Usuario {
     
     private String nombre;
     private String email;
+    private String clave;
 
     // Constructor
-    public Usuario(String nombre, String email) {
+    public Usuario(String nombre, String email, String clave) {
         this.nombre = nombre;
         this.email = email;
+        this.clave = clave;
+        
     }
 
-    public String getNombre() {
+    public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String nuevaClave) {
+		this.clave = nuevaClave;
+		System.out.println("La clave del usuario ha sido actualizado a: " + nuevaClave);
+	}
+
+	public String getNombre() {
         return nombre;
     }
 

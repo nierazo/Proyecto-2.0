@@ -6,6 +6,7 @@ public class Tarea extends Actividad {
     private String estado;  // Estado de la tarea (por ejemplo, "enviada", "completada")
     private Date fechaEntrega;
     private String medioEntrega;  // Medio de entrega (por ejemplo, "LMS", "correo")
+    private String comentarios;
 
     // Constructor
     public Tarea(String descripcion, String objetivo, String nivelDificultad, int duracionEsperada, String creador, Date fechaEntrega, String medioEntrega) {
@@ -13,9 +14,18 @@ public class Tarea extends Actividad {
         this.estado = "pendiente";
         this.fechaEntrega = fechaEntrega;
         this.medioEntrega = medioEntrega;
+        this.comentarios = "";
     }
 
-    // Método para obtener el estado de la tarea
+    public String getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(String comentarios) {
+		this.comentarios = comentarios;
+	}
+
+	// Método para obtener el estado de la tarea
     public String getEstado() {
         return this.estado;
     }
