@@ -6,6 +6,10 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import usuarios.Estudiante;
 import usuarios.Profesor;
@@ -39,7 +43,6 @@ public class Controlador {
    //Método para crear Learning Path
    public void crearLearningPath(String titulo, String descripcion, String objetivo, String contenido, int nivelDificultad, String fechaCreacion) {
 	   LearningPath nuevoPath = new LearningPath(usuarioLocal.getNombre(), titulo, descripcion, objetivo, contenido, nivelDificultad, fechaCreacion);
-  
 	   
 	   Scanner scanner = new Scanner(System.in);
 	   int centinela = 1;
@@ -60,30 +63,64 @@ public class Controlador {
    public void crearActividad(String nombre, String descripcion, String objetivo, String nivelDificultad, int duracionEsperada) {
 	   Actividad nuevaActividad = new Actividad(nombre, descripcion, objetivo, nivelDificultad, duracionEsperada, usuarioLocal.getNombre());
 	   
-	   String nombreCSV = nuevaActividad.getNombre() + ".csv";
-	   String separador = ";";
+	   String nombreCSV = "data/" + nuevaActividad.getNombre() + ".csv";
 	   
-	   ArrayList<String> cabecera = new ArrayList<>();
+	   ArrayList<String> lineaActividad = formatoActividad(nuevaActividad);
+	
 	   
-	   String[] lista = {"Nombre", "Descripcion", "Objetivo", "Nivel de dificultad",
-			   "Duracion esperada", "Prerrequisitos", "Fecha limite", "Obligatorio",
-			   "Resultado", "Rating", "Suma rating", "creador"};
-	    for (String l: lista) {
-	    	cabecera.add(l);
-	    }
-	    
-	    
-	    linea = {};
+	   try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreCSV))) {
+           for (String dato: lineaActividad) {
+        	   writer.write(dato);
+        	   writer.newLine();
+           }
+      
+           System.out.println("La actividad se ha guardado exitosamente");
+           
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+   }
+   
+   
+   
+   public ArrayList<String> formatoActividad(Actividad a){
+	   ArrayList<String> rta = new ArrayList<>();
 	   
+	   String nombre = a.getNombre();
+	   String descripcion = a.getDescripcion();
+	   String objetivo = a.getObjetivo();
+	   String nivel = a.getNivel();
+	   String duracion = String.valueOf(a.getDuracionEsperada());
 	   
+	   //Se transforma tipo Date en str
+	   SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+       String fecha = formato.format(a.getFechaLimite());
 	   
+       String obligatorio = String.valueOf(a.isObligatorioOpcional());
+       String resultado = String.valueOf(a.getResultado());
+       String rating = String.valueOf(a.getRating());
+       String sumaRating = String.valueOf(a.getSumaRating());
+       
+       String prerequisitos = "";
+       
+       ArrayList<String> p = a.getPrerequisitos();
+       for(String s: p) {
+    	   prerequisitos = prerequisitos + ", " + s;
+       }
 	   
-	   
-	   
-	   String nombree = nuevaActividad.getNombre();
-	   String 
-	   
-	   System.out.println("La actividad se ha guardado exitosamente");
+       rta.add(nombre);
+       rta.add(descripcion);
+       rta.add(objetivo);
+       rta.add(nivel);
+       rta.add(duracion);
+       rta.add(fecha);
+       rta.add(obligatorio);
+       rta.add(resultado);
+       rta.add(rating);
+       rta.add(sumaRating);
+       rta.add(prerequisitos);
+       
+       return rta;
    }
    
    public void leerActividad(String nombre) {
@@ -121,35 +158,5 @@ public class Controlador {
 
     // Getters y Setters
 
-    public Map<String, LearningPath> getDatosPaths() {
-        return datosPaths;
-    }
-
-    public void setDatosPaths(Map<String, LearningPath> datosPaths) {
-        this.datosPaths = datosPaths;
-    }
-
-    public Map<String, Actividad> getDatosActividades() {
-        return datosActividades;
-    }
-
-    public void setDatosActividades(Map<String, Actividad> datosActividades) {
-        this.datosActividades = datosActividades;
-    }
-
-    public Map<String, Usuario> getDatosUsuarios() {
-        return datosUsuarios;
-    }
-
-    public void setDatosUsuarios(Map<String, Usuario> datosUsuarios) {
-        this.datosUsuarios = datosUsuarios;
-    }
-
-    public String getUsuarioActual() {
-        return usuarioActual;
-    }
-
-    public void setUsuarioActual(String usuarioActual) {
-        this.usuarioActual = usuarioActual;
-    }
+    
 }

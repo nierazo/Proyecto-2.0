@@ -9,7 +9,7 @@ public class Actividad {
     private String objetivo;
     private String nivelDificultad;
     private int duracionEsperada;
-    private ArrayList<Actividad> prerequisitos;
+    private ArrayList<String> prerequisitos;
     private Date fechaLimiteBasadaEnActividadAnterior;
     private boolean obligatorioOpcional;
     private int resultado;
@@ -55,10 +55,12 @@ public class Actividad {
     }
 
     // Método para agregar un prerrequisito
-    public void agregarPrerequisito(Actividad actividad) {
-        prerequisitos.add(actividad);
+    public void agregarPrerequisito(String nombre) {
+        prerequisitos.add(nombre);
     }
 
+    
+    REVISAR METODO PORQUE SE CAMBIO A ARRAY DE STRING Y NO DE ACTIVIDADES
     // Método para mostrar advertencia sobre prerrequisitos
     public boolean advertenciaPrerequisitos() {
         for (Actividad prerequisito : prerequisitos) {
@@ -76,8 +78,29 @@ public class Actividad {
     public int getDuracionEsperada() {
         return duracionEsperada;
     }
+    
+    public String getNivel() {
+        return nivelDificultad;
+    }
+    
+	public ArrayList<String> getPrerequisitos() {
+		return prerequisitos;
+	}
 
-    public String getDescripcion() {
+
+	public boolean isObligatorioOpcional() {
+		return obligatorioOpcional;
+	}
+
+	public int getResultado() {
+		return resultado;
+	}
+
+	public String getCreador() {
+		return creador;
+	}
+
+	public String getDescripcion() {
         return descripcion;
     }
 
