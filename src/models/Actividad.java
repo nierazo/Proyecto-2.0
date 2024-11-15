@@ -74,7 +74,43 @@ public class Actividad {
     }
     
 
-    // Getters y Setters
+    public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setObjetivo(String objetivo) {
+		this.objetivo = objetivo;
+	}
+
+	public void setNivelDificultad(String nivelDificultad) {
+		this.nivelDificultad = nivelDificultad;
+	}
+
+	public void setDuracionEsperada(int duracionEsperada) {
+		this.duracionEsperada = duracionEsperada;
+	}
+
+	public void setPrerequisitos(ArrayList<String> prerequisitos) {
+		this.prerequisitos = prerequisitos;
+	}
+
+	public void setFechaLimiteBasadaEnActividadAnterior(Date fechaLimiteBasadaEnActividadAnterior) {
+		this.fechaLimiteBasadaEnActividadAnterior = fechaLimiteBasadaEnActividadAnterior;
+	}
+
+	public void setObligatorioOpcional(boolean obligatorioOpcional) {
+		this.obligatorioOpcional = obligatorioOpcional;
+	}
+
+	public void setSumaRating(float sumaRating) {
+		this.sumaRating = sumaRating;
+	}
+
+	public void setCreador(String creador) {
+		this.creador = creador;
+	}
+
+	// Getters y Setters
     public int getDuracionEsperada() {
         return duracionEsperada;
     }

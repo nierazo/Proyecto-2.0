@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
 import java.io.BufferedReader;
@@ -9,6 +10,7 @@ import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import usuarios.Estudiante;
@@ -100,6 +102,7 @@ public class Controlador {
        String resultado = String.valueOf(a.getResultado());
        String rating = String.valueOf(a.getRating());
        String sumaRating = String.valueOf(a.getSumaRating());
+       String creador = a.getCreador();
        
        String prerequisitos = "";
        
@@ -118,13 +121,75 @@ public class Controlador {
        rta.add(resultado);
        rta.add(rating);
        rta.add(sumaRating);
+       rta.add(creador);
        rta.add(prerequisitos);
        
        return rta;
    }
    
-   public void leerActividad(String nombre) {
-	   String ruta = nombre + ".csv";
+   public Actividad leerActividad(String nombreActividad) {
+	   String ruta = "/data/" + nombreActividad + ".csv";
+	   
+	   String nombre = "";
+       String descripcion = "";
+       String objetivo = "";
+       String nivel = "";
+       int duracion = 0;
+       
+       long milisegundos = 1636627200000L; //para inicializar date
+       Date fecha = new Date(milisegundos);
+      
+       Boolean obligatorio = true;
+       int resultado = 0;
+       float rating = 0;
+       float suma = 0;
+       String creador = "";
+       ArrayList<String> prerequisitos = new ArrayList<>();
+	   
+	   try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+           nombre = br.readLine();
+           descripcion = br.readLine();
+           objetivo = br.readLine();
+           nivel = br.readLine();
+           duracion = Integer.parseInt(br.readLine());
+           
+           SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+           String f = br.readLine();
+           
+           try {
+			fecha = formato.parse(f);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+           
+           obligatorio = Boolean.parseBoolean(br.readLine());
+           resultado = Integer.parseInt(br.readLine());
+           rating = Float.parseFloat(br.readLine());
+           suma = Float.parseFloat(br.readLine());
+           creador = br.readLine();
+           
+           String linea = br.readLine();
+           String[] p = linea.split(",");
+           
+           for (String s: p) {
+        	   prerequisitos.add(s);
+           }
+           
+           
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+	   
+	   Actividad actividad = new Actividad(nombre, descripcion, objetivo, nivel, duracion, creador);
+	   
+	   actividad.setFechaLimiteBasadaEnActividadAnterior(fecha);
+	   actividad.setObligatorioOpcional(obligatorio);
+	   actividad.setResultado(resultado);
+	   actividad.setRating(rating);
+	   actividad.setSumaRating(suma);
+	   actividad.setPrerequisitos(prerequisitos);
+	   
+	   return actividad;
 	   
    }
    
