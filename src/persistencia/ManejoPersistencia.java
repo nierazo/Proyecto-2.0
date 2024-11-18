@@ -206,9 +206,62 @@ public class ManejoPersistencia {
 		
 		long milisegundos = 1636627200000L; //para inicializar date
 	       Date fecha = new Date(milisegundos);
-		
+	       
 		try (BufferedReader br = new BufferedReader(new FileReader(nombreCSV))) {
             String line;
+            
+            if ((line = br.readLine()) != null) {
+            	System.out.println("No existen actividades. Debe primero crear una.");
+            	
+            	Scanner scanner = new Scanner(System.in);
+            	System.out.print("Introduce la fecha (dd/MM/yyyy): ");
+                String fechaStr = scanner.nextLine();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			    Date fechaIn = new Date(milisegundos);
+				try {
+					fechaIn = dateFormat.parse(fechaStr);
+				} catch (ParseException e) {
+					
+					e.printStackTrace();
+				}
+
+                // Leer booleano
+                System.out.print("Es obligatorio (true/false): ");
+                Boolean obligatorioIn = scanner.nextBoolean();
+                scanner.nextLine(); // Consumir el salto de línea pendiente
+
+                // Leer nombre
+                System.out.print("Introduce el nombre: ");
+                String nombreIn = scanner.nextLine();
+
+                // Leer descripción
+                System.out.print("Introduce la descripción: ");
+                String descripcionIn = scanner.nextLine();
+
+                // Leer objetivo
+                System.out.print("Introduce el objetivo: ");
+                String objetivoIn = scanner.nextLine();
+
+                // Leer nivel de dificultad
+                System.out.print("Introduce el nivel de dificultad: ");
+                String nivelDificultadIn = scanner.nextLine();
+
+                // Leer duración esperada
+                System.out.print("Introduce la duración esperada (en horas): ");
+                int duracionEsperadaIn = scanner.nextInt();
+                scanner.nextLine(); // Consumir el salto de línea pendiente
+
+                // Leer creador
+                System.out.print("Introduce el nombre de usuario del creador: ");
+                String creadorIn = scanner.nextLine();
+            	
+                scanner.close();
+                
+            	crearActividadData(fechaIn,obligatorioIn , nombreIn,  descripcionIn, objetivoIn, nivelDificultadIn, duracionEsperadaIn, creadorIn);
+            }
+            
+            else {
+            
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
                 
@@ -252,6 +305,7 @@ public class ManejoPersistencia {
          	    mapaActividades.put(actividad.getNombre(), actividad);
                 
             }
+		}
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -798,7 +852,7 @@ public class ManejoPersistencia {
 				            e.printStackTrace();
 				        }
 						
-						System.out.println("Las usuarios se han cargado exitosamente.");
+						System.out.println("Los usuarios se han cargado exitosamente.");
 						
 						return mapaUsuarios;
 					}	   
