@@ -20,8 +20,8 @@ public class ControlPath {
     private ArrayList<ControlActividad> actividades; // Lista de actividades dentro del learning path
 
     // Constructor
-    public ControlPath(String nombrePath, boolean enCurso, Date fechaInicio, Date fechaFinalizacion,
-                       int totalActividades, int actividadesCompletadas, float progreso, ArrayList<ControlActividad> actividades) {
+    public ControlPath(String nombrePath, Date fechaInicio, Date fechaFinalizacion,
+                       int totalActividades, float progreso) {
         super();
         this.nombrePath = nombrePath;
         this.enCurso = false;
@@ -88,28 +88,68 @@ public class ControlPath {
         return false;
     }
 
+	
+
     // Getters para acceder a los datos del learning path (se usa en controlador)
     public String getNombrePath() {
-        return nombrePath;
-    }
+		return nombrePath;
+	}
 
-    public boolean isEnCurso() {
-        return enCurso;
-    }
+	public void setNombrePath(String nombrePath) {
+		this.nombrePath = nombrePath;
+	}
 
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
+	public boolean isEnCurso() {
+		return enCurso;
+	}
 
-    public Date getFechaFinalizacion() {
-        return fechaFinalizacion;
-    }
+	public void setEnCurso(boolean enCurso) {
+		this.enCurso = enCurso;
+	}
 
-    public int getActividadesCompletadas() {
-        return actividadesCompletadas;
-    }
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
 
-    public float getProgreso() {
-        return progreso;
-    }
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public Date getFechaFinalizacion() {
+		return fechaFinalizacion;
+	}
+
+	public void setFechaFinalizacion(Date fechaFinalizacion) {
+		this.fechaFinalizacion = fechaFinalizacion;
+	}
+
+	public int getTotalActividades() {
+		return totalActividades;
+	}
+
+	public void setTotalActividades(int totalActividades) {
+		this.totalActividades = totalActividades;
+	}
+
+	public int getActividadesCompletadas() {
+		return actividadesCompletadas;
+	}
+
+	public void setActividadesCompletadas(int actividadesCompletadas) {
+		this.actividadesCompletadas = actividadesCompletadas;
+	}
+
+	public float getProgreso() {
+		return progreso;
+	}
+
+	public void setProgreso(float progreso) {
+		this.progreso = progreso;
+	}
+
+	public void setActividades(ArrayList<ControlActividad> actividades) {
+		this.actividades = actividades;
+	}
+	
+	
 }

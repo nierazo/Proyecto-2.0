@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import controller.ControlActividad;
+import controller.ControlPath;
 import feedback.Feedback;
 import models.Actividad;
 import models.LearningPath;
@@ -40,6 +42,11 @@ public class ManejoPersistencia {
 		   guardarActividades();
 		   
 		   return mapaActividades;
+	   }
+	   
+	   //Buscar una actividad
+	   public Actividad buscarActividad(String nombre) {
+		   return mapaActividades.get(nombre);
 	   }
 	   
 	//Modificar actividad
@@ -229,7 +236,7 @@ public class ManejoPersistencia {
                 
                 ArrayList<String> prerequisitos = new ArrayList<>();
                 
-                String[] p = values[10].split(",");
+                String[] p = values[11].split(",");
                 
                 for (String s: p) {
                 	prerequisitos.add(s);
@@ -270,6 +277,12 @@ public class ManejoPersistencia {
 			   
 			return mapaPaths;
 		   }
+		
+		//Buscar un path
+		   public LearningPath buscarPath(String nombre) {
+			   return mapaPaths.get(nombre);
+		   }
+		
 		
 		public Map<String, LearningPath> modificarPath(int parametro, String modificar, String path){
 			   LearningPath lp = mapaPaths.get(path); 
@@ -447,7 +460,7 @@ public class ManejoPersistencia {
 		                String[] act = values[11].split(",");
 		                
 		                for (String nombreActividad: act) {
-		                	Actividad actividadAgregar = mapaActividades.get(act);
+		                	Actividad actividadAgregar = mapaActividades.get(nombreActividad);
 		                	actividades.add(actividadAgregar);
 		                }
 		                
@@ -459,7 +472,7 @@ public class ManejoPersistencia {
 		                	
 		                	String comentarioFeed = fifi[0];
 		                	
-		                	SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		                	SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 		                    String fech = fifi[1];
 		                    
 		                    try {
@@ -480,6 +493,7 @@ public class ManejoPersistencia {
 		                lpAgregar.setFeedback(feedback);
 		                lpAgregar.setRating(rating);
 		                lpAgregar.setSumaRating(sumaRating);
+		                lpAgregar.setFechaModificacion(fechaModificacion);
 		                
 		                mapaPaths.put(lpAgregar.getTitulo(), lpAgregar);
 		           
@@ -508,11 +522,27 @@ public class ManejoPersistencia {
 					mapaUsuarios.put(usu.getNombre(), usu);
 				}
 				
-				//guardarUsuarios();
+				guardarUsuarios(tipo);
 				   
 				return mapaUsuarios;
 			   }
 			
+			//Buscar un usuario
+			   public Usuario buscarUsuario(String nombre, int tipo) {
+				   Usuario usu = mapaUsuarios.get(nombre);
+				   
+				   if (tipo == 1) {
+					   usu = (Profesor) usu;
+					  
+				   }
+				   else if (tipo == 2) {
+					   usu = (Estudiante) usu;
+					   
+				   }
+				   return usu;
+				   
+			   }
+
 			//Modificar usuario
 			   
 			   public Map<String, Usuario> modificarUsuario(int parametro, String modificar, String usuario, int tipo){
@@ -542,7 +572,8 @@ public class ManejoPersistencia {
 					   }
 				  
 				   }
-				 //guardarUsuarios();
+				 
+				   guardarUsuarios(tipo);
 				   
 					return mapaUsuarios;
 			   }
@@ -557,53 +588,222 @@ public class ManejoPersistencia {
 						   String email = usu.getEmail();
 						   String clave = usu.getClave();
 						   
+						   rta.add(String.valueOf(tipo));
 						   rta.add(nombre);
 						   rta.add(email);
 						   rta.add(clave);
 					   }
 					   else if(tipo == 2) {
-						   Estudiante estu = (Estudiante) mapaUsuarios.get(usu);
+						   Estudiante estu = (Estudiante) usu;
 						   
+						   String nombre = estu.getNombre();
+						   String email = estu.getEmail();
+						   String clave = estu.getClave();
 						   
+						   String controlPath = "";
+						   
+						   ArrayList<ControlPath> control = estu.getControlPaths();
+						   
+						   for (ControlPath c: control) {
+							   String miniString = "";
+							   
+							   String nombrePath = c.getNombrePath();
+							   String enCurso = String.valueOf(c.isEnCurso());
+							   
+							   SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+						       String fechaInicio = formato.format(c.getFechaInicio());
+						       String fechaFinalizacion = formato.format(c.getFechaFinalizacion());
+						       
+						       String totalActividades = String.valueOf(c.getTotalActividades());
+						       String actividadesCompletadas = String.valueOf(c.getActividadesCompletadas());
+						       String progreso = String.valueOf(c.getProgreso());
+						       String controlActividades = "";
+						       
+						       ArrayList<ControlActividad> controlActi = c.getActividades();
+						       
+						       for (ControlActividad ca: controlActi) {
+						    	   String miniCa = "";
+						    	   
+						    	   String nombreCa = ca.getNombreActividad();
+						    	   String estadoCa = ca.getEstado();
+						    	   String fechaCompletarCa = formato.format(ca.getFechaCompletar());
+						    	   String tiempoDedicadoCa = String.valueOf(ca.getTiempoDedicado());
+						    	   String tasaExito = String.valueOf(ca.getTasaExitoFracaso());
+						    	   String calificacionCa = String.valueOf(ca.getCalificacion());
+						    	   String medioEntrega = ca.getMedioEntrega();
+						    	   
+						    	   miniCa = miniCa + nombreCa + ", " + estadoCa + ", " + fechaCompletarCa + ", ";
+						    	   miniCa = miniCa + tiempoDedicadoCa + ", " + tasaExito + ", " + calificacionCa + ", " + medioEntrega + "/";
+						    	   
+						    	   controlActividades = controlActividades + miniCa;
+						    	   
+						    	   //revisar como se estan separando los datos
+						       }
+						       
+						       miniString = miniString + nombrePath + "$" + enCurso + "$" + fechaInicio + "$" + fechaFinalizacion;
+						       miniString = miniString + totalActividades + "$" + actividadesCompletadas + "$" + progreso + "$" + controlActividades + "*";
+						       
+						       controlPath = controlPath + miniString;
+							   
+						   }
+						   
+						   rta.add(String.valueOf(tipo));
+						   rta.add(nombre);
+						   rta.add(email);
+						   rta.add(clave);
+						   rta.add(controlPath);
 					   }
 					   
+					   return rta;
 			   
 				}
+				
+				
+				//Guardar usuarios
+				   public Map<String, Usuario> guardarUsuarios(int tipo){
+					   String nombreCSV = "data/datosUsuarios.csv";
+					   
+					   try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreCSV))) {
+				           for (String llave: mapaUsuarios.keySet()) {
+				        	   ArrayList<String> lineaPath = formatoUsuario(mapaUsuarios.get(llave), tipo);
+				        	   String line = String.join(";", lineaPath);
+				               writer.write(line);
+				               writer.newLine();
+				           }
+				      
+				           System.out.println("Se ha guardado exitosamente.");
+				           
+				       } catch (IOException e) {
+				           e.printStackTrace();
+				       }
+					   
+					   return mapaUsuarios;
+				   }
+			
+				   
+				 //Se lee el archivo y se crea el mapa de usuarios
+					public Map<String, Usuario> crearMapaUsuarios(){
+						String nombreCSV = "data/datosUsuarios.csv";
+						
+						long milisegundos = 1636627200000L; //para inicializar date
+					       Date fechaInicio = new Date(milisegundos);
+					       Date fechaFinalizacion = new Date(milisegundos);
+					       Date fechaCompletar = new Date(milisegundos);
+						
+						try (BufferedReader br = new BufferedReader(new FileReader(nombreCSV))) {
+				            String line;
+				            while ((line = br.readLine()) != null) {
+				                String[] values = line.split(";");
+				                
+				                int tipo = Integer.parseInt(values[0]);
+				                if (tipo == 1) {
+				                	String nombre = values[1];
+				                	String email = values[2];
+				                	String clave = values[3];
+				                	
+				                	Profesor profesor = new Profesor(nombre, email, clave);
+				                	mapaUsuarios.put(profesor.getNombre(), profesor);
+				                }
+				                else if (tipo == 2) {
+				                	String nombre = values[1];
+				                	String email = values[2];
+				                	String clave = values[3];
+				                	
+				                	ArrayList<ControlPath> controlPaths = new ArrayList<>();
+				                	
+				                	String[] lineaControlPaths = values[4].split("*");
+				                	for (String cp: lineaControlPaths) {
+				                		String[] atributosControlPath = cp.split("$");
+				                		String nombrePath = atributosControlPath[0];
+				                		Boolean enCurso = Boolean.parseBoolean(atributosControlPath[1]);
+				                		
+				                		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+						                String f = atributosControlPath[2];
+				                		
+						                try {
+							     			fechaInicio = formato.parse(f);
+							     		} catch (ParseException e) {
+							     			e.printStackTrace();
+							     		}
+						                
+						                String fa = atributosControlPath[3];
+				                		
+						                try {
+							     			fechaFinalizacion = formato.parse(fa);
+							     		} catch (ParseException e) {
+							     			e.printStackTrace();
+							     		}
+						                
+						                int totalActividades = Integer.parseInt(atributosControlPath[4]);
+						                int actividadesCompletadas = Integer.parseInt(atributosControlPath[5]);
+						                float progreso = Float.parseFloat(atributosControlPath[6]);
+						                
+						                ArrayList<ControlActividad> actividades = new ArrayList<>();
+						                
+						                String[] controlesActividad = atributosControlPath[7].split("/");
+						                
+						                for (String lineaControlActividad: controlesActividad) {
+						                	String[] atributosActividad = lineaControlActividad.split(",");
+						                	
+						                	String nombreAc = atributosActividad[0];
+						                	String estadoAc = atributosActividad[1];
+						                	
+						                	String fc = atributosActividad[2];
+					                		
+							                try {
+								     			fechaCompletar = formato.parse(fc);
+								     		} catch (ParseException e) {
+								     			e.printStackTrace();
+								     		}
+						                	
+						                	float tiempoDedicadoAc = Float.parseFloat(atributosActividad[3]);
+						                	float tasaExitoFAc = Float.parseFloat(atributosActividad[4]);
+						                	float calificacionAc = Float.parseFloat(atributosActividad[5]);
+						                	
+						                	String medioEntregaAc = atributosActividad[6];
+						                	
+						                	ControlActividad controlActividadLocal = new ControlActividad(nombreAc, medioEntregaAc);
+						                	controlActividadLocal.setEstado(estadoAc);
+						                	controlActividadLocal.setFechaCompletar(fechaCompletar);
+						                	controlActividadLocal.setTiempoDedicado(tiempoDedicadoAc);
+						                	controlActividadLocal.setTasaExitoFracaso(tasaExitoFAc);
+						                	controlActividadLocal.setCalificacion(calificacionAc);
+						                	controlActividadLocal.setMedioEntrega(medioEntregaAc);
+						                	
+						                	actividades.add(controlActividadLocal);
+						                	
+						                }
+						                
+						                ControlPath controlPathLocal = new ControlPath(nombrePath, fechaInicio, fechaFinalizacion,
+						                		totalActividades, progreso);
+						                controlPathLocal.setEnCurso(enCurso);
+						                controlPathLocal.setActividadesCompletadas(actividadesCompletadas);
+						                controlPathLocal.setActividades(actividades);
+						                
+						                controlPaths.add(controlPathLocal);
+						                
+				                	}
+				                	
+				                	Estudiante estudiante = new Estudiante(nombre, email, clave);
+				                	estudiante.setControlPaths(controlPaths);
+				                	
+				                	mapaUsuarios.put(estudiante.getNombre(), estudiante);
+				                	
+				                	
+				                }
+				              
+				                
+				            }
+				        } catch (IOException e) {
+				            e.printStackTrace();
+				        }
+						
+						System.out.println("Las usuarios se han cargado exitosamente.");
+						
+						return mapaUsuarios;
+					}	   
+				   
+
 	//FIN SECCION PARA USUARIOS
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}

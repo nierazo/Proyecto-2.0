@@ -50,4 +50,13 @@ public class Estudiante extends Usuario {
             System.out.println(getNombre() + " ha completado la actividad: " + actividad.getDescripcion());
         }
     }
+
+	public ArrayList<ControlPath> getControlPaths() {
+		return controlPaths;
+	}
+
+	public void setControlPaths(ArrayList<ControlPath> controlPaths) {
+		this.controlPaths = controlPaths;
+	}
+    
 }

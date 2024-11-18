@@ -117,4 +117,13 @@ public class ControlActividad {
     public void setNombreActividad(String n) {
         this.nombre = n;
     }
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setFechaCompletar(Date fechaCompletar) {
+		this.fechaCompletar = fechaCompletar;
+	}
+    
 }

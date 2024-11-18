@@ -29,6 +29,7 @@ public class Controlador {
 	private Map<String, Usuario> mapaUsuarios = new HashMap<>();
 	
     private Usuario usuarioLocal;  //tipo de usuario
+    private int tipo;
 
     //Método para crear usuario
     
