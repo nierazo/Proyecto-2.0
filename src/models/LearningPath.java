@@ -11,7 +11,7 @@ public class LearningPath {
     private String descripcion; //2.
     private String objetivo; //3
     private String contenido; //4
-	private int nivelDificultad; //5
+	private String nivelDificultad; //5
     private int duracion;  //6 Duración total en minutos
     private ArrayList<Actividad> actividades;  //7 Estructura de actividades (la lista de actividades)
     private ArrayList<Feedback> feedback;  //USUARIO NO MODIFICA Lista de feedbacks asociados
@@ -21,7 +21,7 @@ public class LearningPath {
     private float sumaRating; //USUARIO NO MODIFICA
 
     // Constructor
-    public LearningPath(int duracion, String creador, String titulo, String descripcion, String objetivo, String contenido, int nivelDificultad, String fechaCreacion) {
+    public LearningPath(int duracion, String creador, String titulo, String descripcion, String objetivo, String contenido, String nivelDificultad, String fechaCreacion) {
         this.creador = creador;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -40,7 +40,7 @@ public class LearningPath {
     // Métodos para gestionar feedback, actividades y la información del Learning Path
 
     // Modificar el Learning Path
-    public void modificarLearningPath(String titulo, String descripcion, int nivelDificultad) {
+    public void modificarLearningPath(String titulo, String descripcion, String nivelDificultad) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.nivelDificultad = nivelDificultad;
@@ -120,7 +120,7 @@ public class LearningPath {
         return contenido;
     }
 
-    public int getNivelDificultad() {
+    public String getNivelDificultad() {
         return nivelDificultad;
     }
 
@@ -164,7 +164,7 @@ public class LearningPath {
 		this.contenido = contenido;
 	}
 
-	public void setNivelDificultad(int nivelDificultad) {
+	public void setNivelDificultad(String nivelDificultad) {
 		this.nivelDificultad = nivelDificultad;
 	}
 
