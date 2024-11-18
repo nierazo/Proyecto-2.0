@@ -272,7 +272,7 @@ public class ManejoPersistencia {
                 int duracion = Integer.parseInt(values[4]);
                 
                 
-                SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
                 String f = values[5];
                 
                 try {
@@ -557,7 +557,7 @@ public class ManejoPersistencia {
 		            e.printStackTrace();
 		        }
 				
-				System.out.println("Las actividades se han cargado exitosamente.");
+				System.out.println("Los paths se han cargado exitosamente.");
 				
 				return mapaPaths;
 			}	   
