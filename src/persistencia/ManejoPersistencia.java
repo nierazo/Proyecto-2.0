@@ -210,7 +210,7 @@ public class ManejoPersistencia {
 		try (BufferedReader br = new BufferedReader(new FileReader(nombreCSV))) {
             String line;
             
-            if ((line = br.readLine()) != null) {
+            if ((line = br.readLine()) == null) {
             	System.out.println("No existen actividades. Debe primero crear una.");
             	
             	Scanner scanner = new Scanner(System.in);
