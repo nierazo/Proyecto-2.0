@@ -1,10 +1,11 @@
 package usuarios;
 
+//1 para profesor, 2 para estudiante
 public class Usuario {
     
-    private String nombre;
-    private String email;
-    private String clave;
+    private String nombre; //1
+    private String email;//2
+    private String clave;//3
 
     // Constructor
     public Usuario(String nombre, String email, String clave) {

@@ -3,22 +3,28 @@ package models;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+//para modificar la actividad se toma el orden de todos los atributos
+//1 para nombre, 2 para descripción, etc
+
+//revisar qué atributos si se deben poder modificar
+
 public class Actividad {
-	private String nombre;
-    private String descripcion;
-    private String objetivo;
-    private String nivelDificultad;
-    private int duracionEsperada;
-    private ArrayList<String> prerequisitos;
-    private Date fechaLimiteBasadaEnActividadAnterior;
-    private boolean obligatorioOpcional;
-    private int resultado;
-    private float rating;
-    private float sumaRating;
-    private String creador;
+	private String nombre; //1. SE PUEDE CAMBIAR? diria que no
+    private String descripcion; //2
+    private String objetivo; //3
+    private String nivelDificultad; //4
+    private int duracionEsperada; //5
+    private ArrayList<String> prerequisitos; //6. recordar separar por comas las actividades
+    private Date fechaLimiteBasadaEnActividadAnterior; //7
+    private boolean obligatorioOpcional; //8
+    private int resultado; //9
+    private float rating; //10. Da rating mas no modifica
+    private float sumaRating; //11. USUARIO NO MODIFICA.
+    private String creador; //12. USUARIO NO MODIFICA
 
     // Constructor
-    public Actividad(String nombre, String descripcion, String objetivo, String nivelDificultad, int duracionEsperada, String creador) {
+    public Actividad(Date fecha, Boolean obligatorio, String nombre, String descripcion, String objetivo, String nivelDificultad, int duracionEsperada, String creador) {
         this.nombre = nombre;
     	this.descripcion = descripcion;
         this.objetivo = objetivo;
@@ -29,6 +35,8 @@ public class Actividad {
         this.resultado = 0;
         this.sumaRating = 0;
         this.creador = creador;
+        this.obligatorioOpcional = obligatorio;
+        this.fechaLimiteBasadaEnActividadAnterior = fecha;
     }
 
     public String getNombre() {
@@ -104,10 +112,6 @@ public class Actividad {
 
 	public void setSumaRating(float sumaRating) {
 		this.sumaRating = sumaRating;
-	}
-
-	public void setCreador(String creador) {
-		this.creador = creador;
 	}
 
 	// Getters y Setters

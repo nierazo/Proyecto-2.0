@@ -3,30 +3,32 @@ package models;
 import java.util.ArrayList;
 import feedback.Feedback;
 
+
+//revisar que parametros si se pueden modificar
 public class LearningPath {
-    private String creador;  // Se refiere al profesor que crea el Learning Path
-    private String titulo;
-    private String descripcion;
-    private String objetivo;
-    private String contenido;
-    private int nivelDificultad;
-    private int duracion;  // Duración total en minutos
-    private ArrayList<Actividad> actividades;  // Estructura de actividades (la lista de actividades)
-    private ArrayList<Feedback> feedback;  // Lista de feedbacks asociados
-    private String fechaCreacion;
-    private String fechaModificacion;
-    private float rating;
-    private float sumaRating;
+    private String creador;  //. USUARIO NO MODIFICA
+    private String titulo;//1. 
+    private String descripcion; //2.
+    private String objetivo; //3
+    private String contenido; //4
+	private int nivelDificultad; //5
+    private int duracion;  //6 Duración total en minutos
+    private ArrayList<Actividad> actividades;  //7 Estructura de actividades (la lista de actividades)
+    private ArrayList<Feedback> feedback;  //USUARIO NO MODIFICA Lista de feedbacks asociados
+    private String fechaCreacion; //USUARIO NO MODIFICA
+    private String fechaModificacion; //USUARIO NO MODIFICA
+    private float rating; //USUARIO NO MODIFICA
+    private float sumaRating; //USUARIO NO MODIFICA
 
     // Constructor
-    public LearningPath(String creador, String titulo, String descripcion, String objetivo, String contenido, int nivelDificultad, String fechaCreacion) {
+    public LearningPath(int duracion, String creador, String titulo, String descripcion, String objetivo, String contenido, int nivelDificultad, String fechaCreacion) {
         this.creador = creador;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.objetivo = objetivo;
         this.contenido = contenido;
         this.nivelDificultad = nivelDificultad;
-        this.duracion = 0;
+        this.duracion = duracion;
         this.actividades = new ArrayList<>();
         this.feedback = new ArrayList<>();
         this.fechaCreacion = fechaCreacion;
@@ -101,6 +103,10 @@ public class LearningPath {
     public String getTitulo() {
         return titulo;
     }
+    
+    public float getSumaRating() {
+		return sumaRating;
+	}
 
     public String getDescripcion() {
         return descripcion;
@@ -142,7 +148,47 @@ public class LearningPath {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
+    public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setObjetivo(String objetivo) {
+		this.objetivo = objetivo;
+	}
+
+	public void setContenido(String contenido) {
+		this.contenido = contenido;
+	}
+
+	public void setNivelDificultad(int nivelDificultad) {
+		this.nivelDificultad = nivelDificultad;
+	}
+
+	public void setDuracion(int duracion) {
+		this.duracion = duracion;
+	}
+
+	public void setActividades(ArrayList<Actividad> actividades) {
+		this.actividades = actividades;
+	}
+
+	public void setFeedback(ArrayList<Feedback> feedback) {
+		this.feedback = feedback;
+	}
+
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+
+	public void setSumaRating(float sumaRating) {
+		this.sumaRating = sumaRating;
+	}
 }
