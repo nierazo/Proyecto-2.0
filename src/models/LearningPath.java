@@ -21,7 +21,7 @@ public class LearningPath {
     private float sumaRating; //USUARIO NO MODIFICA
 
     // Constructor
-    public LearningPath(int duracion, String creador, String titulo, String descripcion, String objetivo, String contenido, String nivelDificultad, String fechaCreacion) {
+    public LearningPath(int duracion, String creador, String titulo, String descripcion, String objetivo, String contenido, int nivelDificultad, String fechaCreacion) {
         this.creador = creador;
         this.titulo = titulo;
         this.descripcion = descripcion;
