@@ -15,10 +15,11 @@ public class Estudiante extends Usuario {
     }
 
     // Método para inscribirse en un Learning Path
-    public void inscribirseEnLearningPath(LearningPath learningPath) {
-        ControlPath nuevoControlPath = new ControlPath(learningPath.getTitulo(), false, new java.util.Date(), null, learningPath.getActividades().size(), 0, 0, new ArrayList<>());
+    public ControlPath inscribirseEnLearningPath(LearningPath learningPath) {
+        ControlPath nuevoControlPath = new ControlPath(learningPath.getTitulo(), new java.util.Date(), null, learningPath.getActividades().size(), 0);
         this.controlPaths.add(nuevoControlPath);
         System.out.println(getNombre() + " se ha inscrito en el Learning Path: " + learningPath.getTitulo());
+        return nuevoControlPath;
     }
 
     // Método para mostrar el progreso de un Learning Path usando ControlPath
@@ -33,11 +34,15 @@ public class Estudiante extends Usuario {
     }
 //Revisar metodo
     // Mostrar los Learning Paths en los que está inscrito
-    public void mostrarLearningPathsInscritos() {
-        System.out.println("Learning Paths inscritos para " + getNombre() + ":");
-        for (LearningPath lp : learningPathsInscritos) {
-            System.out.println("- " + lp.getTitulo());
-        }
+    //public void mostrarLearningPathsInscritos() {
+        //System.out.println("Learning Paths inscritos para " + getNombre() + ":");
+        //for (LearningPath lp : learningPathsInscritos) {
+            //System.out.println("- " + lp.getTitulo());
+        //}
+    //}
+    public void mostrarLearningPathsInscritos(ControlPath nuevoControlPath) {
+    	
+    	
     }
     
  // Método para que el estudiante realice una actividad
